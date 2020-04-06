@@ -86,6 +86,13 @@ darClick(evt) {
     }
 
 
+    //Comienzo de creación de oportunity
+
+    insertarOpportunity(){
+
+    }
+
+
 
 
 //Finaliza Sección
@@ -104,6 +111,14 @@ darClick(evt) {
     handleChange(e) {
         this.value = e.detail.value;
     }
+
+
+    insertarComidasManual(event){
+
+        this.cantidadComidas = event.target.value;
+
+    }
+
 
        comidasSeleccionadas(event) {
        

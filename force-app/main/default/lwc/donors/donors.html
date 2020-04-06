@@ -33,7 +33,7 @@
                     <div class="formulario">
                    <lightning-input type="number"
                          label="Cantidad"
-                         value={cantidadComidas} required pattern="[0-9]*">
+                         value={cantidadComidas} required pattern="[0-9]*" onchange={insertarComidasManual}>
                     </lightning-input>
                     <br>
                     <center><h1>Convertir comidas en: </h1></center>
