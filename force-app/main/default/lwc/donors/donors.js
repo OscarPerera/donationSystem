@@ -1,6 +1,8 @@
 
 import { LightningElement, track, api} from 'lwc';
 import createContactRecord from '@salesforce/apex/ContactController.createContactRecord';
+import hacerEnvio from '@salesforce/apex/EnvioControlador.hacerEnvio';
+import GenerarPdf from '@salesforce/apex/ReporteController.GenerarPdf';
 
 export default class Donors extends LightningElement {
 
@@ -56,6 +58,27 @@ darClick(evt) {
         /*Este es el metodo de oscar, lo llame en esta parte si no funciona.. copiar todo lo que esta dentro
         de insertarContacto arriba de this.openmodel = true */
         this.insertarContacto(); 
+        GenerarPdf({direccion:this.correo})
+        .then(result => {
+            console.log('Funciono el envio')
+
+        })
+        .catch(error => {
+            console.log('No funciono el envio')
+
+        });
+      
+
+        hacerEnvio({correo:this.correo,nombre:this.nombre,cantidad:this.cantidadComidas})
+        .then(result => {
+            console.log('Funciono correcto')
+
+        })
+        .catch(error => {
+            console.log('No funciono el envio')
+
+        });
+        
        
     } else {
         alert('Reintenta de nuevo..');
