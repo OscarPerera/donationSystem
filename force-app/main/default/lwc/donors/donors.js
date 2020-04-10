@@ -1,13 +1,16 @@
 
 import { LightningElement, track, api} from 'lwc';
 import createContactRecord from '@salesforce/apex/ContactController.createContactRecord';
-import hacerEnvio from '@salesforce/apex/EnvioControlador.hacerEnvio';
-import GenerarPdf from '@salesforce/apex/ReporteController.GenerarPdf';
-
+import mxn_eq from '@salesforce/label/c.MXN_meal';
+import usd_eq from '@salesforce/label/c.USD_meal';
 export default class Donors extends LightningElement {
 
- VALOR_COMIDA_PESOS = 50;
- FECHA_FINAL_SEMESTRE = '07/04/2020';
+    //Incorporamos las variables de las etiquetas con la equivalencia en dolar y pesos de cada comida
+    label = {
+        mxn_eq,
+        usd_eq,
+    };
+
 @track value = [''];
 @track cantidadComidas= 0;
 @track money = 0;
@@ -57,29 +60,9 @@ darClick(evt) {
     if (todoValido) {
         alert('Todo esta correcto');
         this.openmodel = true
-        /*Este es el metodo de oscar, lo llame en esta parte si no funciona.. copiar todo lo que esta dentro
-        de insertarContacto arriba de this.openmodel = true */
+       
+        //Método de inserción de contacto
         this.insertarContacto(); 
-        GenerarPdf({direccion:this.correo})
-        .then(result => {
-            console.log('Funciono el envio')
-
-        })
-        .catch(error => {
-            console.log('No funciono el envio')
-
-        });
-      
-
-        hacerEnvio({correo:this.correo,nombre:this.nombre,cantidad:this.cantidadComidas})
-        .then(result => {
-            console.log('Funciono correcto')
-
-        })
-        .catch(error => {
-            console.log('No funciono el envio')
-
-        });
         
        
     } else {
@@ -102,7 +85,8 @@ darClick(evt) {
         opp.Name = 'nueva oportunidad';
         opp.CloseDate = this.FECHA_FINAL_SEMESTRE;
         opp.StageName = 'Prospecting';
-        opp.Amount = (this.cantidadComidas*this.VALOR_COMIDA_PESOS);
+        opp.Amount = (this.cantidadComidas*mxn_eq);
+        opp.CloseDate = '10/14/2017'
 
         createContactRecord({newRecord: cont, newOpportunity: opp})
         .then(result => {
@@ -115,7 +99,7 @@ darClick(evt) {
         });  
     }
     //Comienzo de creación de oportunity
-
+   
 
 
 
@@ -154,13 +138,13 @@ darClick(evt) {
 
     equivalenciaDolar(event) {
       
-    this.money = event.target.value*this.cantidadComidas;
+    this.money = usd_eq * this.cantidadComidas;
 
     }
 
     equivalenciaPeso(event) {
       
-    this.money = event.target.value*this.cantidadComidas;
+    this.money = mxn_eq * this.cantidadComidas;
 
     }
 
