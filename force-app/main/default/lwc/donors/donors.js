@@ -15,11 +15,11 @@ export default class Donors extends LightningElement {
 @track cantidadComidas= 0;
 @track money = 0;
 @track openmodel = false;
-@track buttonStatefulState = false;
-@track buttonIconStatefulState = false;
 @track nombre;
 @track apellido;
 @track email;
+@track urlimage = "";
+@track textpayment = "";
 
 
 
@@ -106,13 +106,6 @@ darClick(evt) {
 
 //Finaliza Sección
 
-   get options() {
-        return [
-            { label: 'Facebook', value: 'option1' },
-            { label: 'Twitter', value: 'option2' },
-        ];
-    }
-
     get selectedValues() {
         return this.value.join(',');
     }
@@ -158,12 +151,23 @@ darClick(evt) {
         picture: 'direccion de logo'
     };
 
-/*
-    handleButtonStatefulClick() {
-        this.buttonStatefulState = !this.buttonStatefulState;
+    /* Empieza combobox */
+
+    get paymentoptions() {
+        return [
+            { label: 'Oxxo', value: 'oxxo' },
+            { label: 'PayPal', value: 'paypal' },
+        ];
     }
-    handleButtonIconStatefulClick() {
-        this.buttonIconStatefulState = !this.buttonIconStatefulState;
-    }
-*/
+
+    changePayment(event) {
+        this.value = event.detail.value;
+        if(this.value == 'oxxo'){
+            this.textpayment = "Al dar click en el botón 'DONAR', se generará una ficha de pago para que realice su donación en OXXO más cercano.";
+        }
+            if(this.value == 'paypal'){
+            this.textpayment = "Al dar click en el botón 'DONAR', se le redireccionará a una ventana de pago PayPal.";
+            }
+        }
+
 }
