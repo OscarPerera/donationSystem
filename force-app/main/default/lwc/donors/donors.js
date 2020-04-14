@@ -86,7 +86,7 @@ darClick(evt) {
         opp.CloseDate = this.FECHA_FINAL_SEMESTRE;
         opp.StageName = 'Prospecting';
         opp.Amount = (this.cantidadComidas*mxn_eq);
-        opp.CloseDate = '10/14/2017'
+        opp.CloseDate = '10/14/2017';
 
         createContactRecord({newRecord: cont, newOpportunity: opp})
         .then(result => {
