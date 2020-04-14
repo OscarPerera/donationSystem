@@ -20,6 +20,7 @@ export default class Donors extends LightningElement {
 @track email;
 @track urlimage = "";
 @track textpayment = "";
+@track prueba ="hola";
 
 
 
@@ -151,7 +152,7 @@ darClick(evt) {
         picture: 'direccion de logo'
     };
 
-    /* Empieza combobox */
+    /* Empieza combobox  payment */
 
     get paymentoptions() {
         return [
@@ -169,5 +170,24 @@ darClick(evt) {
             this.textpayment = "Al dar click en el botón 'DONAR', se le redireccionará a una ventana de pago PayPal.";
             }
         }
+
+    /* Empieza combobox type donor */
+
+    get donortype(){
+        return[
+            {label:'Usuario único', value: 'usuario'},
+            {label:'Empresa', value:'empresa'},
+        ];
+    }
+
+    chooseDonor(event){
+        this.value = event.detail.value;
+        if(this.value == 'usuario'){
+            return this.insertarContacto();
+        }
+        if(this.value == 'empresa'){
+            return this.prueba ;
+        }
+    }
 
 }
