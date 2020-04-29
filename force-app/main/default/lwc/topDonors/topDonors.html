@@ -1,0 +1,29 @@
+<template>
+    <h1>Salon de la fama</h1>
+    <lightning-card title="Compañías" >
+         <div class="slds-m-around_medium"   >
+             <template if:true={companies.data}>
+                 <template for:each={companies.data} for:item="company">
+                     
+                     <p key={company.Id}>{company.Name} Dinero donado: {company.npo02__TotalOppAmount__c}</p>
+
+                 </template>
+
+             </template>
+
+         </div>
+    </lightning-card>
+    <lightning-card title=" Usuarios" >
+        <div class="slds-m-around_medium"   >
+            <template if:true={users.data}>
+                <template for:each={users.data} for:item="user">
+                    
+                    <p key={user.Id}>{user.Name} Dinero donado: {user.npo02__TotalOppAmount__c}</p>
+
+                </template>
+
+            </template>
+
+        </div>
+   </lightning-card>
+</template>

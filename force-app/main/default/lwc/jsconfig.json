@@ -5,6 +5,9 @@
         "paths": {
             "c/donors": [
                 "donors/donors.js"
+            ],
+            "c/topDonors": [
+                "topDonors/topDonors.js"
             ]
         }
     },

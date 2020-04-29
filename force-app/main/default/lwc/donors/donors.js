@@ -10,21 +10,23 @@ export default class Donors extends LightningElement {
         mxn_eq,
         usd_eq,
     };
-
+@track anonimato = false;
 @track value = [''];
-@track cantidadComidas= 0;
-@track money = 0;
+@track cantidadComidas= '';
+@track money = '';
 @track openmodel = false;
 @track nombre;
 @track apellido;
-@track email;
+@track apellidoMaterno;
+@track correo;
 @track urlimage = "";
 @track textpayment = "";
-@track prueba ="hola";
+ingresarNombreOrg = false;
+@track orgName = '';
+selecciónCuenta;
 
-
-
-
+    
+   
     openmodal() {
         this.openmodel = true
     }
@@ -42,11 +44,20 @@ export default class Donors extends LightningElement {
     actualizaApellido(event){
         this.apellido = event.target.value;
     }
+    actualizaApellidoMaterno(event){
+        this.apellidoMaterno = event.target.value;
+    }
     actualizaCorreo(event){
         this.correo = event.target.value;
     }
+    actualizaOrgName(event){
+        this.orgName = event.target.value;
+    }
     
-
+    //Cambia el estado del anónimato cuando se realiza un click
+    mantenerAnonimato(){
+        this.anonimato = !this.anonimato;
+    }
 
 
 /* nuevo metodo para validar campos funciona con el required del html*/
@@ -80,16 +91,20 @@ darClick(evt) {
         let cont = { 'sobjectType': 'Contact' };
         cont.FirstName = this.nombre;
         cont.LastName = this.apellido;
+        cont.Apellido_Materno__c = this.apellidoMaterno;
         cont.Email = this.correo;
 
         let opp = { 'sobjectType': 'Opportunity'};
         opp.Name = 'nueva oportunidad';
         opp.CloseDate = this.FECHA_FINAL_SEMESTRE;
-        opp.StageName = 'Prospecting';
+        opp.StageName = 'Pledged';
         opp.Amount = (this.cantidadComidas*mxn_eq);
-        opp.CloseDate = '10/14/2017';
 
-        createContactRecord({newRecord: cont, newOpportunity: opp})
+        
+
+        //orgName es el nombre de la compañía
+
+        createContactRecord({newRecord: cont, newOpportunity: opp, orgName: this.orgName, accountAnonimaty: this.anonimato})
         .then(result => {
             this.recordId = result;
             console.log(result);
@@ -181,11 +196,16 @@ darClick(evt) {
     }
 
     chooseDonor(event){
-        this.value = event.detail.value;
-        if(this.value == 'usuario'){
-            return this.insertarContacto();
+        this.selecciónCuenta = event.detail.value;
+        if(this.selecciónCuenta == 'usuario'){
+            this.ingresarNombreOrg = false;
+
+            //En caso de volver a ingresar el usuario, el nombre de la organización se resetea
+            this.orgName= '';
+            
         }
-        if(this.value == 'empresa'){
+        if(this.selecciónCuenta == 'empresa'){
+            this.ingresarNombreOrg = true;
             return this.prueba ;
         }
     }
