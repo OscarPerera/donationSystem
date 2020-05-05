@@ -6,6 +6,8 @@ export default class TopDonors extends LightningElement {
 
 @wire(getCompanies) companies;
 @wire(getUsers) users;
+ 
+
 
 
 

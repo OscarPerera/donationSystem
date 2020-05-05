@@ -21,22 +21,10 @@ export default class Donors extends LightningElement {
 @track correo;
 @track urlimage = "";
 @track textpayment = "";
-ingresarNombreOrg = false;
 @track orgName = '';
 selecciónCuenta;
 
     
-   
-    openmodal() {
-        this.openmodel = true
-    }
-    closeModal() {
-        this.openmodel = false
-    } 
-    saveMethod() {
-        alert('Guardado');
-        this.closeModal();
-    }
 
    actualizaNombre(event){
         this.nombre = event.target.value;
@@ -70,13 +58,16 @@ darClick(evt) {
                     return validado && entradasFaltantes.checkValidity();
         }, true);
     if (todoValido) {
-        alert('Todo esta correcto');
-        this.openmodel = true
+        
        
         //Método de inserción de contacto
         this.insertarContacto(); 
         
-       
+        //Reedirecciona a página de agradecimiento
+
+        window.location.replace("https://donor-uady.cs41.force.com/donaciones/s/thank-you-page");
+        
+
     } else {
         alert('Reintenta de nuevo..');
     }
@@ -95,7 +86,6 @@ darClick(evt) {
         cont.Email = this.correo;
 
         let opp = { 'sobjectType': 'Opportunity'};
-        opp.Name = 'nueva oportunidad';
         opp.CloseDate = this.FECHA_FINAL_SEMESTRE;
         opp.StageName = 'Pledged';
         opp.Amount = (this.cantidadComidas*mxn_eq);
@@ -104,7 +94,7 @@ darClick(evt) {
 
         //orgName es el nombre de la compañía
 
-        createContactRecord({newRecord: cont, newOpportunity: opp, orgName: this.orgName, accountAnonimaty: this.anonimato})
+        createContactRecord({newContact: cont, newOpportunity: opp, orgName: this.orgName, accountAnonimaty: this.anonimato})
         .then(result => {
             this.recordId = result;
             console.log(result);
@@ -114,7 +104,7 @@ darClick(evt) {
             this.error = error;
         });  
     }
-    //Comienzo de creación de oportunity
+    
    
 
 
@@ -188,26 +178,8 @@ darClick(evt) {
 
     /* Empieza combobox type donor */
 
-    get donortype(){
-        return[
-            {label:'Usuario único', value: 'usuario'},
-            {label:'Empresa', value:'empresa'},
-        ];
-    }
+  
 
-    chooseDonor(event){
-        this.selecciónCuenta = event.detail.value;
-        if(this.selecciónCuenta == 'usuario'){
-            this.ingresarNombreOrg = false;
 
-            //En caso de volver a ingresar el usuario, el nombre de la organización se resetea
-            this.orgName= '';
-            
-        }
-        if(this.selecciónCuenta == 'empresa'){
-            this.ingresarNombreOrg = true;
-            return this.prueba ;
-        }
-    }
 
 }
