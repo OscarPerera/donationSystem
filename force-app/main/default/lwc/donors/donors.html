@@ -102,17 +102,24 @@
     </div>
                 <br>
                 <br>
-                <center>
-                <img src={urlimage} height="300" width="300">
-                <h5>{textpayment}</h5>
-                </center>
-                <br>
-                <br>
-                    <center>
-                    <button class="slds-button slds-button--neutral" onclick={darClick}>
-                        <p>DONAR</p>
-                    </button>
-                    </center>
+                
+                    
+
+
+                    <template if:true={pagoPaypal}>
+                        <center>
+                            <div>
+                                <iframe  src={fullUrl} scrolling="no" width="150" height="30" style="border: 0; background-color:#eef1f6;"></iframe>
+                            </div>
+                            </center>
+                     </template>
+                     <template if:true={pagoOxxo}>
+                        <center>
+                            <button class="slds-button slds-button--neutral" onclick={darClick}>
+                                <p>DONAR</p>
+                            </button>
+                            </center>
+                      </template>
     
             </div>
     

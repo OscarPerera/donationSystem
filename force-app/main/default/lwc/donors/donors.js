@@ -21,8 +21,9 @@ export default class Donors extends LightningElement {
 @track correo;
 @track urlimage = "";
 @track textpayment = "";
-@track orgName = '';
+@track orgName = null;
 selecciónCuenta;
+@track valorPesos;
 
     
 
@@ -73,12 +74,42 @@ darClick(evt) {
     }
 }
 
+@track fullUrl
+         renderedCallback()
+         {  this.valorPesos = (this.cantidadComidas*mxn_eq);
+            this.fullUrl=`https://donor-metodopaypal.cs41.force.com/metodoPaypal?data=${this.correo}/${this.valorPesos}/${this.nombre}/${this.apellido}/${this.apellidoMaterno}/${this.orgName}/${this.anonimato}`;
+         }
+
+darClickPayPal(evt) {
+    console.log('Valor de la entrada: ' + evt.target.value);
+
+    const todoValido = [...this.template.querySelectorAll('lightning-input')].reduce((validado, entradasFaltantes) => {
+                    entradasFaltantes.reportValidity();
+                    return validado && entradasFaltantes.checkValidity();
+        }, true);
+    if (todoValido) {
+        
+       
+        //Método de inserción de contacto
+        
+        
+        //Reedirecciona a página de agradecimiento
+        this.valorPesos = (this.cantidadComidas*mxn_eq);
+        window.open('https://donor-metodopaypal.cs41.force.com/metodoPaypal?data='+this.correo+'/'+this.valorPesos+'/'+this.nombre+'/'+this.apellido+'/'+this.apellidoMaterno+'/'+this.orgName+'/'+this.anonimato, '_top');
+        
+
+    } else {
+        alert('Reintenta de nuevo..');
+    }
+}
+
 
 
 //Seccion de inserción de objetos en APEX
    
     insertarContacto(){
-    
+        this.valorPesos = (this.cantidadComidas*mxn_eq);
+
         let cont = { 'sobjectType': 'Contact' };
         cont.FirstName = this.nombre;
         cont.LastName = this.apellido;
@@ -86,10 +117,10 @@ darClick(evt) {
         cont.Email = this.correo;
 
         let opp = { 'sobjectType': 'Opportunity'};
-        opp.CloseDate = this.FECHA_FINAL_SEMESTRE;
+        
         opp.StageName = 'Pledged';
         opp.Amount = (this.cantidadComidas*mxn_eq);
-
+        opp.banderaTipoPago__c = 0; 
         
 
         //orgName es el nombre de la compañía
@@ -130,7 +161,6 @@ darClick(evt) {
 
        comidasSeleccionadas(event) {
        
-        const buttonNumber = event.target.dataset.buttonNumber;
         this.cantidadComidas = event.target.value;
         this.money = 0;
     }
@@ -166,20 +196,27 @@ darClick(evt) {
         ];
     }
 
+
+    pagoOxxo = false;
+    pagoPaypal = false;
+
     changePayment(event) {
         this.value = event.detail.value;
         if(this.value == 'oxxo'){
-            this.textpayment = "Al dar click en el botón 'DONAR', se generará una ficha de pago para que realice su donación en OXXO más cercano.";
+
+            this.pagoOxxo = true;
+            this.pagoPaypal = false;
         }
             if(this.value == 'paypal'){
-            this.textpayment = "Al dar click en el botón 'DONAR', se le redireccionará a una ventana de pago PayPal.";
+            this.pagoPaypal = true;
+            this.pagoOxxo = false;
             }
         }
 
     /* Empieza combobox type donor */
 
   
-
+    
 
 
 }

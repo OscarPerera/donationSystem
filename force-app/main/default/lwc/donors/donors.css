@@ -90,6 +90,12 @@ width: 100px;
 background-color: #4BC076;
 color: white;
 }
+.slds-button--paypal{
+    padding: 5px;
+    width: 100px;
+    background-color: rgb(180, 192, 75);
+    color: rgb(255, 255, 255);
+    }
 
 .botones{
     padding: 20px;
