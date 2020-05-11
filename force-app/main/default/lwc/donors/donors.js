@@ -78,7 +78,6 @@ darClick(evt) {
         }, true);
     if (todoValido) {
         
-       
         //Método de inserción de contacto
         this.insertarContacto(); 
         
@@ -128,29 +127,6 @@ darClick(evt) {
         
         }
 
-darClickPayPal(evt) {
-    console.log('Valor de la entrada: ' + evt.target.value);
-
-    const todoValido = [...this.template.querySelectorAll('lightning-input')].reduce((validado, entradasFaltantes) => {
-                    entradasFaltantes.reportValidity();
-                    return validado && entradasFaltantes.checkValidity();
-        }, true);
-    if (todoValido) {
-        
-       
-        //Método de inserción de contacto
-        
-        //Reedirecciona a página de agradecimiento
-       // this.valorPesos = (this.cantidadComidas*mxn_eq);
-      
-
-        //window.open('https://donor-metodopaypal.cs41.force.com/metodoPaypal?data='+this.correo+'/'+this.valorPesos+'/'+this.nombre+'/'+this.apellido+'/'+this.apellidoMaterno+'/'+this.orgName+'/'+this.anonimato, '_top');
-        
-
-    } else {
-        alert('Reintenta de nuevo..');
-    }
-}
 
 
 
@@ -169,7 +145,7 @@ darClickPayPal(evt) {
         
         opp.StageName = 'Pledged';
         opp.Amount = (this.cantidadComidas*mxn_eq);
-        opp.banderaTipoPago__c = 0; 
+        opp.banderaTipoPago__c = 'oxxo'; 
         
 
         //orgName es el nombre de la compañía
