@@ -12,7 +12,7 @@ export default class Donors extends LightningElement {
     };
 @track anonimato = false;
 @track value = [''];
-@track cantidadComidas= '';
+@track cantidadComidas; // aqui estaba definido = ''
 @track money = '';
 @track openmodel = false;
 @track nombre;
@@ -22,8 +22,11 @@ export default class Donors extends LightningElement {
 @track urlimage = "";
 @track textpayment = "";
 @track orgName = null;
+@track condicion = false;
 selecciónCuenta;
 @track valorPesos;
+@track fullUrl;
+
 
     
 
@@ -47,6 +50,21 @@ selecciónCuenta;
     mantenerAnonimato(){
         this.anonimato = !this.anonimato;
     }
+
+
+
+    ejecute(){
+        if(this.nombre != null && this.apellido != null && 
+         this.correo != null  &&  (this.cantidadComidas != null || this.cantidadComidas != '')){
+            this.condicion = true;
+ 
+
+        }else{
+            this.condicion = false;
+
+        }
+    }
+
 
 
 /* nuevo metodo para validar campos funciona con el required del html*/
@@ -73,12 +91,42 @@ darClick(evt) {
         alert('Reintenta de nuevo..');
     }
 }
-
-@track fullUrl
+    
          renderedCallback()
-         {  this.valorPesos = (this.cantidadComidas*mxn_eq);
-            this.fullUrl=`https://donor-metodopaypal.cs41.force.com/metodoPaypal?data=${this.correo}/${this.valorPesos}/${this.nombre}/${this.apellido}/${this.apellidoMaterno}/${this.orgName}/${this.anonimato}`;
-         }
+         {  
+             
+             var segundoA;
+
+             
+             
+            if(this.apellidoMaterno == null || this.apellidoMaterno == ''){
+                segundoA = 'null';
+            }else{
+                segundoA = this.apellidoMaterno;
+            }
+
+            
+            
+
+
+
+            this.valorPesos = (this.cantidadComidas*mxn_eq);
+
+     
+
+            if(this.condicion == true){
+          
+            this.fullUrl=`https://donor-metodopaypal.cs41.force.com/metodoPaypal?data=${this.correo}/${this.valorPesos}/${this.nombre}/${this.apellido}/${segundoA}/${this.orgName}/${this.anonimato}`;
+           
+         
+        
+        
+        
+        
+        }
+            this.ejecute();
+        
+        }
 
 darClickPayPal(evt) {
     console.log('Valor de la entrada: ' + evt.target.value);
@@ -92,10 +140,11 @@ darClickPayPal(evt) {
        
         //Método de inserción de contacto
         
-        
         //Reedirecciona a página de agradecimiento
-        this.valorPesos = (this.cantidadComidas*mxn_eq);
-        window.open('https://donor-metodopaypal.cs41.force.com/metodoPaypal?data='+this.correo+'/'+this.valorPesos+'/'+this.nombre+'/'+this.apellido+'/'+this.apellidoMaterno+'/'+this.orgName+'/'+this.anonimato, '_top');
+       // this.valorPesos = (this.cantidadComidas*mxn_eq);
+      
+
+        //window.open('https://donor-metodopaypal.cs41.force.com/metodoPaypal?data='+this.correo+'/'+this.valorPesos+'/'+this.nombre+'/'+this.apellido+'/'+this.apellidoMaterno+'/'+this.orgName+'/'+this.anonimato, '_top');
         
 
     } else {
