@@ -118,7 +118,7 @@ darClick(evt) {
 
             if(this.condicion == true){
           
-            this.fullUrl=`https://donor-metodopaypal.cs41.force.com/metodoPaypal?data=${this.correo}/${this.valorPesos}/${this.nombre}/${this.apellido}/${segundoA}/${this.orgName}/${this.anonimato}`;
+            this.fullUrl=`https://donor-metodopaypal.cs41.force.com/metodoPaypal?data=${this.correo}/${this.valorPesos}/${this.nombre}/${this.apellido}/${segundoA}/${this.orgName}/${this.anonimato}/${this.cantidadComidas}`;
            
          
         
@@ -149,6 +149,7 @@ darClick(evt) {
         opp.StageName = 'Pledged';
         opp.Amount = (this.cantidadComidas*mxn_eq);
         opp.banderaTipoPago__c = 'oxxo'; 
+        opp.Cantidad_Comidas = this.cantidadComidas;
         
 
         //orgName es el nombre de la compañía
