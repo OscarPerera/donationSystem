@@ -5,10 +5,12 @@
 
 
 .header{
-    padding:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: -40px;
      background-color:#0070D2;
-     background-image: url("");
+   
 }
 
 .detalles-contenedor{
@@ -135,3 +137,9 @@ lightning-button-icon-stateful{
     color: blue;
     margin-right: 40px;
 }
+
+div img {
+    width:100px;
+
+}
+

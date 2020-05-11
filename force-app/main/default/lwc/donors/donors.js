@@ -1,6 +1,8 @@
 
 import { LightningElement, track, api} from 'lwc';
 import createContactRecord from '@salesforce/apex/ContactController.createContactRecord';
+import logosalesforce from '@salesforce/resourceUrl/logosalesforce';
+
 import mxn_eq from '@salesforce/label/c.MXN_meal';
 import usd_eq from '@salesforce/label/c.USD_meal';
 export default class Donors extends LightningElement {
@@ -27,7 +29,8 @@ selecciónCuenta;
 @track valorPesos;
 @track fullUrl;
 
-
+    salesforce= logosalesforce;
+  
     
 
    actualizaNombre(event){
