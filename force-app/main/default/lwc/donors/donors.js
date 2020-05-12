@@ -149,7 +149,7 @@ darClick(evt) {
         opp.StageName = 'Pledged';
         opp.Amount = (this.cantidadComidas*mxn_eq);
         opp.banderaTipoPago__c = 'oxxo'; 
-        opp.Cantidad_Comidas = this.cantidadComidas;
+        opp.Cantidad_Comidas__c = this.cantidadComidas;
         
 
         //orgName es el nombre de la compañía
