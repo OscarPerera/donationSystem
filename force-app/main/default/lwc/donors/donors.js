@@ -2,7 +2,6 @@
 import { LightningElement, track, api} from 'lwc';
 import createContactRecord from '@salesforce/apex/ContactController.createContactRecord';
 import logosalesforce from '@salesforce/resourceUrl/logosalesforce';
-
 import mxn_eq from '@salesforce/label/c.MXN_meal';
 import usd_eq from '@salesforce/label/c.USD_meal';
 export default class Donors extends LightningElement {
@@ -29,7 +28,11 @@ selecciónCuenta;
 @track valorPesos;
 @track fullUrl;
 
+
+
+
     salesforce= logosalesforce;
+
   
     
 
@@ -92,10 +95,20 @@ darClick(evt) {
     } else {
         alert('Reintenta de nuevo..');
     }
-}
+}       
+
+
+   
+      
+    
+    
+
     
          renderedCallback()
          {  
+        
+       
+    
              
              var segundoA;
 
@@ -106,10 +119,6 @@ darClick(evt) {
             }else{
                 segundoA = this.apellidoMaterno;
             }
-
-            
-            
-
 
 
             this.valorPesos = (this.cantidadComidas*mxn_eq);
