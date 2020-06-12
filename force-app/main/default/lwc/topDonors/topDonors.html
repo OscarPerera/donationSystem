@@ -1,34 +1,60 @@
 <template>
     
     
-    
-    <lightning-card title="Compañías" icon-name="action:new_account" >
+        <div class="header">
+         
+           
+            </div>
         
-         <div class="slds-m-around_medium"   >
-             <template if:true={companies.data}>
-                 <template for:each={companies.data} for:item="company">
-                     
-                     <p key={company.Id}>{company.Name}</p>
 
-                 </template>
+        <div class="detalles-contenedor">
+            <center><h2 class="titulo">TOP DONORS</h2></center>
+             <br>      
+         <div class="slds-border_top contendor ">
+             <div class="slds-box slds-theme--inverse">
 
-             </template>
-
-         </div>
-    </lightning-card>
-    
-    <lightning-card title=" Usuarios" icon-name="action:new_person_account">
-        
-        <div class="slds-m-around_medium"   >
-            <template if:true={users.data}>
-                <template for:each={users.data} for:item="user">
-                    
-                    <p key={user.Id}>{user.Name} </p>
-
+                <template if:true={accounts.data}>
+                    <template for:each={accounts.data} for:item="account">
+                        
+                       <template if:false={account.Anonimato__c}>
+                        
+                        <lightning-card key={account.Id}>
+                            <lightning-icon
+                            icon-name="standard:account"
+                            size="large"
+                            alternative-text="Account">
+                    </lightning-icon>
+                    <p key={account.Id}>{account.Name}</p>
+                    <span class="slds-badge">{account.Cantidad_Comidas__c} meals</span>
+                </lightning-card>
+                       </template>
+   
+                       <template if:true={account.Anonimato__c}>
+                        <lightning-card key={account.Id}>
+                            <lightning-icon
+                            icon-name="standard:account"
+                            size="large"
+                            alternative-text="Account">
+                            </lightning-icon>
+                            <p key={account.Id}>anonymous account</p>
+                            <span class="slds-badge">{account.Cantidad_Comidas__c} meals</span>
+                        </lightning-card>
+                       </template>
+   
+                    </template>
+   
                 </template>
 
-            </template>
-
+             </div>
+            </div>
         </div>
-   </lightning-card>
+    
+    
+        
+         
+             
+
+         
+        
+   
 </template>

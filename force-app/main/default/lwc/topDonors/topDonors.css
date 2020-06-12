@@ -1,0 +1,41 @@
+.backg{
+    background-color: #EEF1F6;
+}
+
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: -40px;
+     background-color:#0070D2;
+   
+}
+
+.detalles-contenedor{
+    margin:0px auto;
+    margin-top:100px;
+    width: 500px;
+    
+}
+
+.titulo{
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+div img {
+    width: 100px;
+}
+
+p{
+    font-size: 15px;
+    text-align: center;
+    color: #0070D2;
+}
+
+lightning-card {
+    text-align: center;
+    background-color: rgb(126, 191, 248);
+    color: rgb(126, 191, 248);
+}

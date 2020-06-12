@@ -1,7 +1,6 @@
-
 import { LightningElement, track, api} from 'lwc';
 import createContactRecord from '@salesforce/apex/ContactController.createContactRecord';
-import logosalesforce from '@salesforce/resourceUrl/logosalesforce';
+
 import mxn_eq from '@salesforce/label/c.MXN_meal';
 import usd_eq from '@salesforce/label/c.USD_meal';
 export default class Donors extends LightningElement {
@@ -31,7 +30,9 @@ selecciónCuenta;
 
 
 
-    salesforce= logosalesforce;
+
+
+
 
   
     
@@ -59,14 +60,16 @@ selecciónCuenta;
 
 
 
+    /*Verifica que los campos no esten vacios, este aplica para el metodo de paypal, considerando que si retorna true todos los campos estan llenados, todo caso false*/
     ejecute(){
         if(this.nombre != null && this.apellido != null && 
          this.correo != null  &&  (this.cantidadComidas != null || this.cantidadComidas != '')){
             this.condicion = true;
- 
+            
 
         }else{
             this.condicion = false;
+            return false;
 
         }
     }
@@ -89,31 +92,36 @@ darClick(evt) {
         
         //Reedirecciona a página de agradecimiento
 
-        window.location.replace("https://donor-uady.cs41.force.com/donaciones/s/thank-you-page");
-        
+        window.open("https://donaciones.secure.force.com/generatePDF/","null","location=no,toolbar=no,menubar=no,scrollbars=yes,resizable=yes");
 
+        window.location.replace("https://uady.force.com/donaciones/s/thank-you-page");
+        
+       
     } else {
         alert('Reintenta de nuevo..');
     }
 }       
 
 
+
+
    
       
     
     
-
+    //Metodo que recargara todo lo que este adentro, si se hace algun cambio en el html
     
          renderedCallback()
          {  
+
         
        
-    
+            this.ejecute();
              
              var segundoA;
 
              
-             
+             //verifica que el apellido materno si no introduce nada se quede como null
             if(this.apellidoMaterno == null || this.apellidoMaterno == ''){
                 segundoA = 'null';
             }else{
@@ -124,18 +132,16 @@ darClick(evt) {
             this.valorPesos = (this.cantidadComidas*mxn_eq);
 
      
-
+            //En todo caso que this.condicion es verdadera esto quiere decir que se mostrara el boton de paypal se le pasa parametros por url 
             if(this.condicion == true){
+
           
-            this.fullUrl=`https://donor-metodopaypal.cs41.force.com/metodoPaypal?data=${this.correo}/${this.valorPesos}/${this.nombre}/${this.apellido}/${segundoA}/${this.orgName}/${this.anonimato}/${this.cantidadComidas}`;
+            this.fullUrl=`https://donaciones.secure.force.com/metodoPaypal?data=${this.correo}/${this.valorPesos}/${this.nombre}/${this.apellido}/${segundoA}/${this.orgName}/${this.anonimato}/${this.cantidadComidas}`;
            
-         
-        
-        
         
         
         }
-            this.ejecute();
+           
         
         }
 
@@ -152,12 +158,14 @@ darClick(evt) {
         cont.LastName = this.apellido;
         cont.Apellido_Materno__c = this.apellidoMaterno;
         cont.Email = this.correo;
+       
 
         let opp = { 'sobjectType': 'Opportunity'};
         
         opp.StageName = 'Pledged';
         opp.Amount = (this.cantidadComidas*mxn_eq);
         opp.banderaTipoPago__c = 'oxxo'; 
+        opp.Account_Owner_Email__c = this.correo;
         opp.Cantidad_Comidas__c = this.cantidadComidas;
         
 
@@ -251,8 +259,7 @@ darClick(evt) {
             }
         }
 
-    /* Empieza combobox type donor */
-
+    
   
     
 

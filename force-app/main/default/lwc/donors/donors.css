@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
     margin-bottom: -40px;
-     background-color:#0070D2;
+    
    
 }
 
@@ -129,9 +129,7 @@ color: white;
    
 }
 
-.backg{
-    background-color: #EEF1F6;
-}
+
 
 lightning-button-icon-stateful{
     color: blue;
@@ -142,4 +140,3 @@ div img {
     width:100px;
 
 }
-
