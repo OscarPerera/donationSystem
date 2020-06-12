@@ -1,0 +1,50 @@
+<template >
+
+    <!--ULTIMO VERSION DEL CODIGO PARA SUBIR COMPROBANTE CREADO EL DIA 02.05.2020
+  CREADO POR EMMANUEL RIVERO-->
+  
+  <!--
+  
+  Este codigo es para subir el comprobante de oxxo una vez que el usuario ya tenga su comprobante otorgado por oxxo. Solo tiene derecho a subirlo una vez.
+  
+  
+  -->
+  
+      <div style="text-align:center ">
+        
+       
+          <lightning-card title="Token">
+             
+              <div style="margin-left:4% ">
+                  
+                  <div style="margin-right:4% ">
+                    
+                  <lightning-input type="text" name="id" label="*Token" placeholder="INCORRECT TOKEN" value={codigo} read-only="true" ></lightning-input>
+                  </div>
+                
+                  <div>
+                      <lightning-input label="*Upload your file" name="file uploader" onchange={handleFilesChange} type="file" multiple accept={acceptedFormats}></lightning-input>
+                  </div><br/>
+                  <div class="slds-text-body_small slds-text-color_error">{fileName}
+                  <template if:true={showLoadingSpinner}>
+                          <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
+                      </template>
+                  </div><br/>
+                  <div>
+                     
+                      <lightning-button class="slds-m-top--medium" label={UploadFile} onclick={handleSave} accept={acceptedFormats} variant="brand" disabled={isTrue}></lightning-button>
+                  </div>
+             
+              </div><br/><br/>
+             
+      
+          </lightning-card>
+  
+  
+          </div>
+  
+       
+  
+      
+  
+  </template>

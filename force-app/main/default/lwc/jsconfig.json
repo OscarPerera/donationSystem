@@ -11,6 +11,9 @@
             ],
             "c/headerTopDonors": [
                 "headerTopDonors/headerTopDonors.js"
+            ],
+            "c/subirLWC": [
+                "subirLWC/subirLWC.js"
             ]
         }
     },
