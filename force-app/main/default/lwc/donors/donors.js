@@ -1,6 +1,7 @@
 import { LightningElement, track, api} from 'lwc';
 import createContactRecord from '@salesforce/apex/ContactController.createContactRecord';
-
+import { loadScript, loadStyle } from 'lightning/platformResourceLoader';
+import boostrap from '@salesforce/resourceUrl/bootstrap';
 import mxn_eq from '@salesforce/label/c.MXN_meal';
 import usd_eq from '@salesforce/label/c.USD_meal';
 export default class Donors extends LightningElement {
@@ -57,6 +58,39 @@ selecciónCuenta;
     mantenerAnonimato(){
         this.anonimato = !this.anonimato;
     }
+
+
+
+
+        
+    connectedCallback() {
+        Promise.all([
+    
+            loadStyle(this, boostrap + '/bootstrap/css/bootstrap.css'),
+            loadStyle(this, boostrap + '/bootstrap/css/bootstrap.min.css')
+        ])
+            .then(() => {
+               
+            })
+            .catch(error => {
+                alert(error.body.message);
+            });
+    
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
